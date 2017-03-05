@@ -4,7 +4,7 @@ This Chrome Extension will show the location and timezone information for all ph
 
 ## Installation
 
-TODO: Describe the installation process
+https://chrome.google.com/webstore/detail/phone-helper/cllcdbfbaembamcnhgkmihgmndhgimfb
 
 ## Usage
 
