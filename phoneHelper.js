@@ -1,4 +1,4 @@
-//console.log("Phone Helper");
+// console.log("Phone Helper");
 var __phoneNumberRegex = /(^|\D)((?:(?:\+?1[\s\.-]?)?\(?[2-9]\d\d\)?[\s\.-]?)?[2-9]\d{2}[\s\.-]?\d{4})($|\D)/g;
 var __commentRegex = /\/\*[\W\w]*\*\//;
 var __cssRegex = /[#.][\w -]*\{[\W\w]*\}/;
@@ -216,6 +216,7 @@ var us_code = {
   "781": {"State": "MA", "Time": "E"},
   "785": {"State": "KS", "Time": "C"},
   "786": {"State": "FL", "Time": "E"},
+  "787": {"State": "PR", "Time": "E"},
   "801": {"State": "UT", "Time": "M"},
   "802": {"State": "VT", "Time": "E"},
   "803": {"State": "SC", "Time": "E"},
@@ -313,6 +314,25 @@ function linkPhoneNumbers(node) {
                 || child.nodeName == "APPLET" || child.nodeName == "IFRAME") {
             continue;
         }
+        if (child.nodeName == "DIV") {
+          // console.log("div");
+          if (child.hasAttribute("contenteditable")) {
+            // console.log("editable div");
+            continue;
+          }
+          // if (child.hasAttribute("data-msg-id")) {
+          //   // console.log("data-msg-id div");
+          //   continue;
+          // }
+        }
+        if (child.parentElement && (child.parentElement.nodeName == "DIV" &&
+          child.parentElement.hasAttribute("contenteditable")) ||
+          (child.parentElement.parentElement &&
+            child.parentElement.parentElement.nodeName == "DIV" &&
+            child.parentElement.parentElement.hasAttribute("contenteditable"))) {
+            // console.log("parent contenteditable");
+            continue;
+        }
 
         if (child.childNodes.length > 0) {
             linkPhoneNumbers(child);
@@ -332,7 +352,7 @@ function linkPhoneNumbers(node) {
                 var title = "";
 
                 //stripped = stripped.replace(/[\.-]+/g,"");
-                console.log("stripped: " + stripped + ", " + stripped.substring(0,3));
+                // console.log("stripped: " + stripped + ", " + stripped.substring(0,3));
                 if (stripped.length == 10) {
                   // US number
                   var code = us_code[stripped.substring(0,3)];
@@ -359,6 +379,7 @@ function linkPhoneNumbers(node) {
 
                 child.splitText(phoneNumbers.index + phoneNumbers[0].length);
                 node.insertBefore(link, node.childNodes[++i]);
+                return true;
             }
         }
     }
