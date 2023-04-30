@@ -366,7 +366,7 @@ function linkPhoneNumbers(node) {
                 }
 
                 var image = document.createElement("img");
-                image.src = chrome.extension.getURL("icon48.png");
+                image.src = chrome.runtime.getURL("icon48.png");
                 image.style.width = "1em";
                 image.style.height = "1em";
 
@@ -379,7 +379,6 @@ function linkPhoneNumbers(node) {
 
                 child.splitText(phoneNumbers.index + phoneNumbers[0].length);
                 node.insertBefore(link, node.childNodes[++i]);
-                return true;
             }
         }
     }

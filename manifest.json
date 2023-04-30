@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Phone Helper",
   "version": "1.1",
   "description": "Location, timezone, and click-to-dial",
@@ -7,7 +7,7 @@
     "48": "icon48.png",
     "128": "icon128.png"
   },
-  "minimum_chrome_version": "10",
+  "minimum_chrome_version": "88",
   "content_scripts": [
     {
 	  "matches": ["*://*/*"],
@@ -15,10 +15,8 @@
 	  "all_frames": true
 	  }
   ],
-  "web_accessible_resources": [
-    "icon48.png"
-  ],
-  "permissions": [
-	  "*://*/*"
-  ]
+  "web_accessible_resources": [{
+    "resources":["icon48.png"],
+    "matches": ["<all_urls>"]
+  }]
 }
